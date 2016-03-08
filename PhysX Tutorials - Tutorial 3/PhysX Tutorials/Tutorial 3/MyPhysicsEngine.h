@@ -225,8 +225,8 @@ namespace PhysicsEngine
 			box = new Box(PxTransform(PxVec3(.0f, .5f, .0f)));
 			compoundBox = new CompoundObject(PxTransform(PxVec3(.0f, .5f, .0f)));
 
-			recBorder1 = new Rectangle(PxTransform(PxVec3(55.0f, .0f, 15.0f)));
-			recBorder2 = new Rectangle(PxTransform(PxVec3(-55.0f, .0f, 15.0f)));
+			recBorder1 = new Rectangle(PxTransform(PxVec3(55.0f, .0f, 15.0f)), PxVec3(.5f, 5.0f, 60.0f), PxReal(10.0f)); 
+			recBorder2 = new Rectangle(PxTransform(PxVec3(-55.0f, .0f, 15.0f)), PxVec3(.5f, 5.0f, 60.0f), PxReal(10.0f));
 			recBorder3 = new Rectangle(PxTransform(PxVec3(.0f, .0f, 70.0f)), PxVec3(60.0f, 5.5f, .5f), PxReal(10.0f));
 			recBorder4 = new Rectangle(PxTransform(PxVec3(.0f, .0f, -40.0f)), PxVec3(60.0f, 5.5f, .5f), PxReal(10.0f));
 			trampoline = new Trampoline(PxVec3(1.f, 1.f, 1.f));
