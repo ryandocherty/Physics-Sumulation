@@ -186,6 +186,11 @@ namespace PhysicsEngine
 		Box* box, *box2;
 		Trampoline* trampoline;
 		CompoundObject* compoundBox;
+
+		//borders for the level
+		Rectangle* recBorder1, *recBorder2, *recBorder3, *recBorder4; 
+		
+
 		MySimulationEventCallback* my_callback;
 
 	public:
@@ -219,11 +224,22 @@ namespace PhysicsEngine
 
 			box = new Box(PxTransform(PxVec3(.0f, .5f, .0f)));
 			compoundBox = new CompoundObject(PxTransform(PxVec3(.0f, .5f, .0f)));
+
+			recBorder1 = new Rectangle(PxTransform(PxVec3(55.0f, .0f, 15.0f)));
+			recBorder2 = new Rectangle(PxTransform(PxVec3(-55.0f, .0f, 15.0f)));
+			recBorder3 = new Rectangle(PxTransform(PxVec3(.0f, .0f, 70.0f)), PxVec3(60.0f, 5.5f, .5f), PxReal(10.0f));
+			recBorder4 = new Rectangle(PxTransform(PxVec3(.0f, .0f, -40.0f)), PxVec3(60.0f, 5.5f, .5f), PxReal(10.0f));
 			trampoline = new Trampoline(PxVec3(1.f, 1.f, 1.f));
 
+			
 
 			box->Color(color_palette[0]);
 			compoundBox->Color(color_palette[1]);
+			recBorder1->Color(color_palette[2]);
+			recBorder2->Color(color_palette[3]);
+			recBorder3->Color(color_palette[4]);
+			recBorder4->Color(color_palette[5]);
+
 
 			//set collision filter flags
 			// box->SetupFiltering(FilterGroup::ACTOR0, FilterGroup::ACTOR1);
@@ -234,6 +250,10 @@ namespace PhysicsEngine
 			box->Name("Box1");
 			Add(box);
 			Add(compoundBox);
+			Add(recBorder1); 
+			Add(recBorder2); 
+			Add(recBorder3); 
+			Add(recBorder4); 
 			//Add(trampoline); 
 
 

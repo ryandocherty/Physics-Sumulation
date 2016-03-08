@@ -48,6 +48,19 @@ namespace PhysicsEngine
 		}
 	};
 
+
+	class Rectangle : public StaticActor
+	{
+	public:
+		//a Box with default parameters
+		Rectangle(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, .5f, 60.0f), PxReal density = 1.f)
+			: StaticActor(pose)
+		{
+			CreateShape(PxBoxGeometry(dimensions), density);
+		}
+	};
+
+
 	class Capsule : public DynamicActor
 	{
 	public:
