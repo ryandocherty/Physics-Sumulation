@@ -123,6 +123,26 @@ namespace PhysicsEngine
 		}
 	};
 
+
+	class CompoundObject : public StaticActor
+	{
+	public:
+
+		CompoundObject(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, .5f, .5f), PxReal density = 1.f)
+			: StaticActor(pose)
+		{
+
+			CreateShape(PxBoxGeometry(1.0f, 1.0f, 1.0f), 1.0f);
+			CreateShape(PxBoxGeometry(.6f, .6f, .6f), 2.0f);
+
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(0.f, .0f, .0f)));
+			GetShape(0)->setLocalPose(PxTransform(PxQuat(0.785398f, PxVec3(.0f, 1.f, .0f)))); //0.785398 == 45 degrees
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(3.f, 0.f, 0.f)));
+
+		}
+	};
+
+
 	//Distance joint with the springs switched on
 	class DistanceJoint : public Joint
 	{
