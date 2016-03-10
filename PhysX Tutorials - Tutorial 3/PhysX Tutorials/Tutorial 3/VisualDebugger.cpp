@@ -175,7 +175,7 @@ namespace VisualDebugger
 		{
 			//implement your own
 		case 'R':
-			scene->ExampleKeyPressHandler();
+			scene->push();
 			break;
 		default:
 			break;

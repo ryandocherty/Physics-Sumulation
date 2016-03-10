@@ -41,10 +41,11 @@ namespace PhysicsEngine
 		// - pose in 0,0,0
 		// - dimensions: 1m x 1m x 1m
 		// - denisty: 1kg/m^3
-		Box(const PxTransform& pose=PxTransform(PxIdentity), PxVec3 dimensions=PxVec3(.5f,.5f,.5f), PxReal density=1.f) 
+		Box(const PxTransform& pose=PxTransform(PxIdentity), PxVec3 dimensions=PxVec3(.5f, 5.0f, 60.0f), PxReal density=1.f)
 			: DynamicActor(pose)
 		{ 
-			CreateShape(PxBoxGeometry(dimensions), density);
+			
+
 		}
 	};
 
@@ -53,10 +54,17 @@ namespace PhysicsEngine
 	{
 	public:
 		//a Box with default parameters
-		Rectangle(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, .5f, 60.0f), PxReal density = 1.f)
+		Rectangle(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, 10.f, 60.f), PxReal density = 1.f)
 			: StaticActor(pose)
 		{
 			CreateShape(PxBoxGeometry(dimensions), density);
+			CreateShape(PxBoxGeometry(dimensions), density);
+			CreateShape(PxBoxGeometry(dimensions), density);
+			CreateShape(PxBoxGeometry(dimensions), density);
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(55.0f, .0f, 15.0f)));
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(-55.0f, .0f, 15.0f)));
+			GetShape(2)->setLocalPose(PxTransform(PxVec3(.0f, .0f, 70.0f), (PxQuat(PxPi / 2, PxVec3(0.f, 1.f, .0f)))));
+			GetShape(3)->setLocalPose(PxTransform(PxVec3(.0f, .0f, -40.0f), (PxQuat(PxPi / 2, PxVec3(0.f, 1.f, .0f)))));
 		}
 	};
 
@@ -145,15 +153,31 @@ namespace PhysicsEngine
 			: StaticActor(pose)
 		{
 
-			CreateShape(PxBoxGeometry(1.0f, 1.0f, 1.0f), 1.0f);
-			CreateShape(PxBoxGeometry(.6f, .6f, .6f), 2.0f);
+			//CreateShape(PxBoxGeometry(1.0f, 1.0f, 1.0f), 1.0f);
+			//CreateShape(PxBoxGeometry(.6f, .6f, .6f), 2.0f);
 
-			GetShape(0)->setLocalPose(PxTransform(PxVec3(0.f, .0f, .0f)));
-			GetShape(0)->setLocalPose(PxTransform(PxQuat(0.785398f, PxVec3(.0f, 1.f, .0f)))); //0.785398 == 45 degrees
-			GetShape(1)->setLocalPose(PxTransform(PxVec3(3.f, 0.f, 0.f)));
+			//GetShape(0)->setLocalPose(PxTransform(PxVec3(0.f, .0f, .0f)));
+			//GetShape(0)->setLocalPose(PxTransform(PxQuat(0.785398f, PxVec3(.0f, 1.f, .0f)))); //0.785398 == 45 degrees
+			//GetShape(1)->setLocalPose(PxTransform(PxVec3(3.f, 0.f, 0.f)));
 
 		}
 	};
+
+
+	class Club : public DynamicActor
+	{
+	public:
+
+		Club(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(1.5f, 1.5f, 1.5f), PxReal density = 1.f)
+			: DynamicActor(pose)
+		{
+
+			CreateShape(PxBoxGeometry(4.0f, 15.0f, 1.0f), 1.0f);
+			GetShape(0)->setLocalPose(PxTransform(PxQuat(PxPi / 2, PxVec3(1.f, 0.f, .0f))));
+
+		}
+	};
+
 
 
 	//Distance joint with the springs switched on

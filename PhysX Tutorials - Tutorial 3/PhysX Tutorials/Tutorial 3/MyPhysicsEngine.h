@@ -187,9 +187,11 @@ namespace PhysicsEngine
 		Trampoline* trampoline;
 		CompoundObject* compoundBox;
 		Sphere* golfBall; 
+		RevoluteJoint* golfClub; 
+		Club* club; 
 
 		//borders for the level
-		Rectangle* recBorder1, *recBorder2, *recBorder3, *recBorder4; 
+		Rectangle* border; 
 		
 
 		MySimulationEventCallback* my_callback;
@@ -220,26 +222,22 @@ namespace PhysicsEngine
 			px_scene->setSimulationEventCallback(my_callback);
 
 			plane = new Plane();
+			club = new Club(); 
 			plane->Color(PxVec3(210.f / 255.f, 210.f / 255.f, 210.f / 255.f));
 			Add(plane);
-
-			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -30.0f))); 
-
-			recBorder1 = new Rectangle(PxTransform(PxVec3(55.0f, .0f, 15.0f)), PxVec3(.5f, 5.0f, 60.0f), PxReal(10.0f)); 
-			recBorder2 = new Rectangle(PxTransform(PxVec3(-55.0f, .0f, 15.0f)), PxVec3(.5f, 5.0f, 60.0f), PxReal(10.0f));
-			recBorder3 = new Rectangle(PxTransform(PxVec3(.0f, .0f, 70.0f)), PxVec3(60.0f, 5.5f, .5f), PxReal(10.0f));
-			recBorder4 = new Rectangle(PxTransform(PxVec3(.0f, .0f, -40.0f)), PxVec3(60.0f, 5.5f, .5f), PxReal(10.0f));
-			trampoline = new Trampoline(PxVec3(1.f, 1.f, 1.f));
-
+			Add(club);
 			
 
+			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -20.0f))); 
+			border = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f))); 
+	
+
+			RevoluteJoint joint(NULL, PxTransform(PxVec3(0.f, 17.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
+
+
 			golfBall->Color(color_palette[0]);
-			recBorder1->Color(color_palette[2]);
-			recBorder2->Color(color_palette[3]);
-			recBorder3->Color(color_palette[4]);
-			recBorder4->Color(color_palette[5]);
-
-
+			border->Color(color_palette[4]);
+			
 			//set collision filter flags
 			// box->SetupFiltering(FilterGroup::ACTOR0, FilterGroup::ACTOR1);
 			//use | operator to combine more actors e.g.
@@ -248,14 +246,8 @@ namespace PhysicsEngine
 			// box2->SetupFiltering(FilterGroup::ACTOR1, FilterGroup::ACTOR0);
 			
 			Add(golfBall); 
-			Add(recBorder1); 
-			Add(recBorder2); 
-			Add(recBorder3); 
-			Add(recBorder4); 
+			Add(border); 
 		
-
-
-
 			/*
 			//joint two boxes together
 			//the joint is fixed to the centre of the first box, oriented by 90 degrees around the Y axis
@@ -263,6 +255,14 @@ namespace PhysicsEngine
 			RevoluteJoint joint(box, PxTransform(PxVec3(0.f,0.f,0.f),PxQuat(PxPi/2,PxVec3(0.f,1.f,0.f))), box2, PxTransform(PxVec3(0.f,5.f,0.f)));
 			*/
 		}
+
+
+		//adds force to club
+		void push()
+		{
+			((PxRigidDynamic*)club->Get())->addForce(PxVec3(1.f, 0.f, 0.f) * 10000000); 
+		}
+
 
 		//Custom udpate function
 		virtual void CustomUpdate()
