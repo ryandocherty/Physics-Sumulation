@@ -183,15 +183,13 @@ namespace PhysicsEngine
 	class MyScene : public Scene
 	{
 		Plane* plane;
-		
-		Trampoline* trampoline;
-		CompoundObject* compoundBox;
 		Sphere* golfBall; 
+		Rectangle* rectangles; 
 		RevoluteJoint* golfClub; 
 		Club* club; 
 
 		//borders for the level
-		Rectangle* border; 
+		Border* border; 
 		
 
 		MySimulationEventCallback* my_callback;
@@ -228,11 +226,12 @@ namespace PhysicsEngine
 			Add(club);
 			
 
-			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -20.0f))); 
-			border = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f))); 
+			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f))); 
+			border = new Border(PxTransform(PxVec3(.5f, .5f, .5f))); 
+			rectangles = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f)));
 	
 
-			RevoluteJoint joint(NULL, PxTransform(PxVec3(0.f, 17.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
+			RevoluteJoint joint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
 
 
 			golfBall->Color(color_palette[0]);
@@ -247,6 +246,7 @@ namespace PhysicsEngine
 			
 			Add(golfBall); 
 			Add(border); 
+			Add(rectangles); 
 		
 			/*
 			//joint two boxes together

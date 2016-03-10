@@ -45,7 +45,6 @@ namespace PhysicsEngine
 			: DynamicActor(pose)
 		{ 
 			
-
 		}
 	};
 
@@ -53,8 +52,25 @@ namespace PhysicsEngine
 	class Rectangle : public StaticActor
 	{
 	public:
+		Rectangle(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.1f, 10.f, 10.f), PxReal density = 1.f)
+			: StaticActor(pose)
+		{
+			CreateShape(PxBoxGeometry(dimensions), density);
+			CreateShape(PxBoxGeometry(dimensions), density);
+			CreateShape(PxBoxGeometry(dimensions), density);
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(47.0f, .0f, -32.0f), (PxQuat(PxPi / 4, PxVec3(0.f, 1.f, .0f)))));
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(30.0f, .0f, 1.0f)));
+			GetShape(2)->setLocalPose(PxTransform(PxVec3(40.0f, .0f, 1.0f)));
+		}
+	};
+
+
+
+	class Border : public StaticActor
+	{
+	public:
 		//a Box with default parameters
-		Rectangle(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, 10.f, 60.f), PxReal density = 1.f)
+		Border(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, 10.f, 60.f), PxReal density = 1.f)
 			: StaticActor(pose)
 		{
 			CreateShape(PxBoxGeometry(dimensions), density);
