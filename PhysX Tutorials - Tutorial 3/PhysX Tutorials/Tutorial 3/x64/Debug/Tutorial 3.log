@@ -1,13 +1,13 @@
-﻿Build started 14/03/2016 20:47:10.
+﻿Build started 14/03/2016 21:56:57.
      1>Project "C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\Tutorial 3\Tutorial 3.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\3.3.4\include" /I.\Graphics\include\win32 /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt "Tutorial 3.cpp" VisualDebugger.cpp
-         VisualDebugger.cpp
+         Tutorial 3.cpp
      1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\basicactors.h(63): warning C4305: 'argument': truncation from 'double' to 'physx::PxReal'
      1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(276): warning C4244: 'argument': conversion from 'int' to 'physx::PxReal', possible loss of data
          Generating Code...
          Compiling...
-         Tutorial 3.cpp
+         VisualDebugger.cpp
      1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\basicactors.h(63): warning C4305: 'argument': truncation from 'double' to 'physx::PxReal'
      1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(276): warning C4244: 'argument': conversion from 'int' to 'physx::PxReal', possible loss of data
          Generating Code...
@@ -23,4 +23,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.68
+Time Elapsed 00:00:01.75

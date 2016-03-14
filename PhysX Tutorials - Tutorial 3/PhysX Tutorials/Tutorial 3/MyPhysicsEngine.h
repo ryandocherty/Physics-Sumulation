@@ -186,9 +186,10 @@ namespace PhysicsEngine
 		Plane* plane;
 		Sphere* golfBall; 
 		Rectangle* rectangles; 
-		RevoluteJoint* golfClub; 
+		RevoluteJoint* joint,* joint2;
 		Club* club; 
 		Box* box; 
+		Spinner* spinner; 
 
 		//borders for the level
 		Border* border; 
@@ -232,6 +233,7 @@ namespace PhysicsEngine
 			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f))); 
 			border = new Border(PxTransform(PxVec3(.5f, .5f, .5f))); 
 			rectangles = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f)));
+			spinner = new Spinner(PxTransform(PxVec3(.5f, .5f, .5f)));
 
 			//sets a bouncy property to shapes
 			PxMaterial* rectangleMaterial = CreateMaterial(.0f, .0f, 3.f); 
@@ -247,7 +249,6 @@ namespace PhysicsEngine
 			box->Color(color_palette[1]); 
 
 			box->SetTrigger(1);
-
 			
 			//set collision filter flags
 			// box->SetupFiltering(FilterGroup::ACTOR0, FilterGroup::ACTOR1);
@@ -260,13 +261,12 @@ namespace PhysicsEngine
 			Add(border); 
 			Add(rectangles); 
 			Add(box); 
+			Add(spinner); 
+
+			//Rotating spinner
+			joint2 = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 0.f, 1.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 1.f, 0.f)));
+			joint2->DriveVelocity(PxReal(1));
 		
-			/*
-			//joint two boxes together
-			//the joint is fixed to the centre of the first box, oriented by 90 degrees around the Y axis
-			//and has the second object attached 5 meters away along the Y axis from the first object.
-			RevoluteJoint joint(box, PxTransform(PxVec3(0.f,0.f,0.f),PxQuat(PxPi/2,PxVec3(0.f,1.f,0.f))), box2, PxTransform(PxVec3(0.f,5.f,0.f)));
-			*/
 		}
 
 

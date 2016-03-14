@@ -59,10 +59,25 @@ namespace PhysicsEngine
 			CreateShape(PxBoxGeometry(dimensions), density);
 			CreateShape(PxBoxGeometry(dimensions), density);
 			CreateShape(PxBoxGeometry(dimensions), density);
-			GetShape(0)->setLocalPose(PxTransform(PxVec3(47.0f, .0f, -32.0f), (PxQuat(PxPi / 4, PxVec3(0.f, 1.f, .0f)))));
-			GetShape(1)->setLocalPose(PxTransform(PxVec3(47.0f, .0f, 63.0f), (PxQuat(PxPi / 1.4, PxVec3(0.f, 1.f, .0f)))));
-			GetShape(2)->setLocalPose(PxTransform(PxVec3(30.0f, .0f, 30.0f)));
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(47.0f, .0f, -32.0f), (PxQuat(PxPi / 4, PxVec3(0.f, 1.f, .0f))))); //bottom left corner rectangle
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(47.0f, .0f, 63.0f), (PxQuat(PxPi / 1.4, PxVec3(0.f, 1.f, .0f))))); //top left corner rectangle
+			GetShape(2)->setLocalPose(PxTransform(PxVec3(-30.0f, .0f, 30.0f)));
 			GetShape(3)->setLocalPose(PxTransform(PxVec3(40.0f, .0f, 1.0f)));
+		}
+	};
+
+
+	class Spinner : public DynamicActor
+	{
+	public:
+		Spinner(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, 7.f, .5f), PxReal density = 1.f)
+			: DynamicActor(pose)
+		{
+
+			CreateShape(PxBoxGeometry(dimensions), density);
+			CreateShape(PxBoxGeometry(dimensions), density);
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f))); 
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f), (PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f)))));
 		}
 	};
 
