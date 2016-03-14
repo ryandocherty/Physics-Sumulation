@@ -76,7 +76,7 @@ namespace PhysicsEngine
 
 			CreateShape(PxBoxGeometry(dimensions), density);
 			CreateShape(PxBoxGeometry(dimensions), density);
-			GetShape(0)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f))); 
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f), (PxQuat(PxPi / 2, PxVec3(1.f, 0.f, 0.f)))));
 			GetShape(1)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f), (PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f)))));
 		}
 	};

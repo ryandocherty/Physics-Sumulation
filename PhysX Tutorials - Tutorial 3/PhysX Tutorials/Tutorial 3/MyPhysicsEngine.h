@@ -203,6 +203,7 @@ namespace PhysicsEngine
 		MyScene() : Scene() {};
 		int myForce = 10000000; 
 
+
 		///A custom scene class
 		void SetVisualisation()
 		{
@@ -245,9 +246,9 @@ namespace PhysicsEngine
 			RevoluteJoint joint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
 
 			golfBall->Color(color_palette[0]);
+			box->Color(color_palette[1]);
 			border->Color(color_palette[4]);
-			box->Color(color_palette[1]); 
-
+			
 			box->SetTrigger(1);
 			
 			//set collision filter flags
@@ -264,8 +265,8 @@ namespace PhysicsEngine
 			Add(spinner); 
 
 			//Rotating spinner
-			joint2 = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 0.f, 1.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 1.f, 0.f)));
-			joint2->DriveVelocity(PxReal(1));
+			joint2 = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 1.0f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 1.0f, 0.f)));
+			joint2->DriveVelocity(PxReal(5.0f));
 		
 		}
 

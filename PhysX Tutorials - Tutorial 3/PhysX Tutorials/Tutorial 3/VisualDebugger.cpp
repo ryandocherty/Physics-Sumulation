@@ -47,6 +47,7 @@ namespace VisualDebugger
 	bool key_state[MAX_KEYS];
 	bool hud_show = true;
 	HUD hud;
+	std::string myForceString; 
 
 	//Init the debugger
 	void Init(const char *window_name, int width, int height)
@@ -55,7 +56,7 @@ namespace VisualDebugger
 		PhysicsEngine::PxInit();
 		scene = new PhysicsEngine::MyScene();
 		scene->Init();
-
+	    myForceString = std::to_string(scene->myForce);
 		///Init renderer
 		Renderer::BackgroundColor(PxVec3(150.f / 255.f, 150.f / 255.f, 150.f / 255.f));
 		Renderer::SetRenderDetail(40);
@@ -110,6 +111,8 @@ namespace VisualDebugger
 		hud.AddLine(HELP, " UP Arrow - Increase Force");
 		hud.AddLine(HELP, " DOWN Arrow - Decrease Force");
 		hud.AddLine(HELP, " Apply Force (to golf club) - R");
+		hud.AddLine(HELP, myForceString);
+
 		//add a pause screen
 		hud.AddLine(PAUSE, "");
 		hud.AddLine(PAUSE, "");
@@ -169,6 +172,10 @@ namespace VisualDebugger
 
 		//render HUD
 		hud.Render();
+		hud.Clear(); 
+		HUDInit();
+		myForceString = "Force: " + std::to_string(scene->myForce); 
+
 
 		//finish rendering
 		Renderer::Finish();
