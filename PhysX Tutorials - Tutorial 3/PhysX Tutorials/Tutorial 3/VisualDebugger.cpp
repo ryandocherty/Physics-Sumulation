@@ -19,7 +19,8 @@ namespace VisualDebugger
 	{
 		EMPTY = 0,
 		HELP = 1,
-		PAUSE = 2
+		PAUSE = 2,
+		WIN = 3
 	};
 
 	//function declarations
@@ -106,9 +107,9 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "    W,S,A,D,Q,Z - forward,backward,left,right,up,down");
 		hud.AddLine(HELP, "    mouse + click - change orientation");
 		hud.AddLine(HELP, "    F8 - reset view");
-		hud.AddLine(HELP, "");
-		hud.AddLine(HELP, " Force (applied to the selected actor)");
-		hud.AddLine(HELP, "    I,K,J,L,U,M - forward,backward,left,right,up,down");
+		hud.AddLine(HELP, " UP Arrow - Increase Force");
+		hud.AddLine(HELP, " DOWN Arrow - Decrease Force");
+		hud.AddLine(HELP, " Apply Force (to golf club) - R");
 		//add a pause screen
 		hud.AddLine(PAUSE, "");
 		hud.AddLine(PAUSE, "");
@@ -147,6 +148,8 @@ namespace VisualDebugger
 				Renderer::Render(&actors[0], (PxU32)actors.size());
 		}
 
+
+
 		//adjust the HUD state
 		if (hud_show)
 		{
@@ -157,6 +160,12 @@ namespace VisualDebugger
 		}
 		else
 			hud.ActiveScreen(EMPTY);
+	
+
+		/*else if (scene->triggerbool)
+		{
+			hud.ActiveScreen(WIN); 
+		}*/
 
 		//render HUD
 		hud.Render();
@@ -235,27 +244,30 @@ namespace VisualDebugger
 
 		switch (toupper(key))
 		{
-			// Force controls on the selected actor
-		case 'I': //forward
-			scene->GetSelectedActor()->addForce(PxVec3(0, 0, -1)*gForceStrength);
-			break;
-		case 'K': //backward
-			scene->GetSelectedActor()->addForce(PxVec3(0, 0, 1)*gForceStrength);
-			break;
-		case 'J': //left
-			scene->GetSelectedActor()->addForce(PxVec3(-1, 0, 0)*gForceStrength);
-			break;
-		case 'L': //right
-			scene->GetSelectedActor()->addForce(PxVec3(1, 0, 0)*gForceStrength);
-			break;
-		case 'U': //up
-			scene->GetSelectedActor()->addForce(PxVec3(0, 1, 0)*gForceStrength);
-			break;
-		case 'M': //down
-			scene->GetSelectedActor()->addForce(PxVec3(0, -1, 0)*gForceStrength);
-			break;
-		default:
-			break;
+		//	
+		//// Force controls on the selected actor
+
+	
+		//case 'I': //forward
+		//	scene->GetSelectedActor()->addForce(PxVec3(0, 0, -1)*gForceStrength);
+		//	break;
+		//case 'K': //backward
+		//	scene->GetSelectedActor()->addForce(PxVec3(0, 0, 1)*gForceStrength);
+		//	break;
+		//case 'J': //left
+		//	scene->GetSelectedActor()->addForce(PxVec3(-1, 0, 0)*gForceStrength);
+		//	break;
+		//case 'L': //right
+		//	scene->GetSelectedActor()->addForce(PxVec3(1, 0, 0)*gForceStrength);
+		//	break;
+		//case 'U': //up
+		//	scene->GetSelectedActor()->addForce(PxVec3(0, 1, 0)*gForceStrength);
+		//	break;
+		//case 'M': //down
+		//	scene->GetSelectedActor()->addForce(PxVec3(0, -1, 0)*gForceStrength);
+		//	break;
+		//default:
+		//	break;
 		}
 	}
 
@@ -265,6 +277,18 @@ namespace VisualDebugger
 		//simulation control
 		switch (key)
 		{
+			
+			//Add force
+		case GLUT_KEY_UP:
+			scene->myForce += 50000; 
+			cout << "Force: " << scene->myForce << endl; 
+			break;
+			//Subtract force
+		case GLUT_KEY_DOWN:
+			scene->myForce -= 50000; 
+			cout << "Force: " << scene->myForce << endl;
+			break; 
+
 			//display control
 		case GLUT_KEY_F5:
 			//hud on/off

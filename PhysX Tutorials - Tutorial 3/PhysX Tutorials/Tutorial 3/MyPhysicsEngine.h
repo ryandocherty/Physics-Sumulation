@@ -11,6 +11,7 @@ namespace PhysicsEngine
 	//a list of colours: Circus Palette
 	static const PxVec3 color_palette[] = { PxVec3(46.f / 255.f,9.f / 255.f,39.f / 255.f),PxVec3(217.f / 255.f,0.f / 255.f,0.f / 255.f),
 		PxVec3(255.f / 255.f,45.f / 255.f,0.f / 255.f),PxVec3(255.f / 255.f,140.f / 255.f,54.f / 255.f),PxVec3(4.f / 255.f,117.f / 255.f,111.f / 255.f) };
+	
 
 	//pyramid vertices
 	static PxVec3 pyramid_verts[] = { PxVec3(0,1,0), PxVec3(1,0,0), PxVec3(-1,0,0), PxVec3(0,0,1), PxVec3(0,0,-1) };
@@ -187,6 +188,7 @@ namespace PhysicsEngine
 		Rectangle* rectangles; 
 		RevoluteJoint* golfClub; 
 		Club* club; 
+		Box* box; 
 
 		//borders for the level
 		Border* border; 
@@ -198,6 +200,7 @@ namespace PhysicsEngine
 		//specify your custom filter shader here
 		//PxDefaultSimulationFilterShader by default
 		MyScene() : Scene() {};
+		int myForce = 10000000; 
 
 		///A custom scene class
 		void SetVisualisation()
@@ -225,17 +228,26 @@ namespace PhysicsEngine
 			Add(plane);
 			Add(club);
 			
-
+			box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
 			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f))); 
 			border = new Border(PxTransform(PxVec3(.5f, .5f, .5f))); 
 			rectangles = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f)));
-	
 
+			//sets a bouncy property to shapes
+			PxMaterial* rectangleMaterial = CreateMaterial(.0f, .0f, 3.f); 
+			PxMaterial* borderMaterial = CreateMaterial(.0f, .0f, .5f);
+			rectangles->Material(rectangleMaterial); 
+			border->Material(borderMaterial); 
+			
+			//Golf club joint
 			RevoluteJoint joint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
-
 
 			golfBall->Color(color_palette[0]);
 			border->Color(color_palette[4]);
+			box->Color(color_palette[1]); 
+
+			box->SetTrigger(1);
+
 			
 			//set collision filter flags
 			// box->SetupFiltering(FilterGroup::ACTOR0, FilterGroup::ACTOR1);
@@ -247,6 +259,7 @@ namespace PhysicsEngine
 			Add(golfBall); 
 			Add(border); 
 			Add(rectangles); 
+			Add(box); 
 		
 			/*
 			//joint two boxes together
@@ -260,7 +273,7 @@ namespace PhysicsEngine
 		//adds force to club
 		void push()
 		{
-			((PxRigidDynamic*)club->Get())->addForce(PxVec3(1.f, 0.f, 0.f) * 10000000); 
+			((PxRigidDynamic*)club->Get())->addForce(PxVec3(1.f, 0.f, 0.f) * myForce); 
 		}
 
 

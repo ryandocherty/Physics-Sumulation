@@ -34,17 +34,17 @@ namespace PhysicsEngine
 	};
 
 	///Box class
-	class Box : public DynamicActor
+	class Box : public StaticActor
 	{
 	public:
 		//a Box with default parameters:
 		// - pose in 0,0,0
 		// - dimensions: 1m x 1m x 1m
 		// - denisty: 1kg/m^3
-		Box(const PxTransform& pose=PxTransform(PxIdentity), PxVec3 dimensions=PxVec3(.5f, 5.0f, 60.0f), PxReal density=1.f)
-			: DynamicActor(pose)
+		Box(const PxTransform& pose=PxTransform(PxIdentity), PxVec3 dimensions=PxVec3(3.f, 0.3f, 3.f), PxReal density=1.f)
+			: StaticActor(pose)
 		{ 
-			
+			CreateShape(PxBoxGeometry(dimensions), density);
 		}
 	};
 
@@ -58,9 +58,11 @@ namespace PhysicsEngine
 			CreateShape(PxBoxGeometry(dimensions), density);
 			CreateShape(PxBoxGeometry(dimensions), density);
 			CreateShape(PxBoxGeometry(dimensions), density);
+			CreateShape(PxBoxGeometry(dimensions), density);
 			GetShape(0)->setLocalPose(PxTransform(PxVec3(47.0f, .0f, -32.0f), (PxQuat(PxPi / 4, PxVec3(0.f, 1.f, .0f)))));
-			GetShape(1)->setLocalPose(PxTransform(PxVec3(30.0f, .0f, 1.0f)));
-			GetShape(2)->setLocalPose(PxTransform(PxVec3(40.0f, .0f, 1.0f)));
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(47.0f, .0f, 63.0f), (PxQuat(PxPi / 1.4, PxVec3(0.f, 1.f, .0f)))));
+			GetShape(2)->setLocalPose(PxTransform(PxVec3(30.0f, .0f, 30.0f)));
+			GetShape(3)->setLocalPose(PxTransform(PxVec3(40.0f, .0f, 1.0f)));
 		}
 	};
 
