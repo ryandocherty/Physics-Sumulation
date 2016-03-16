@@ -93,25 +93,31 @@ namespace VisualDebugger
 		//initialise HUD
 		//add an empty screen
 		hud.AddLine(EMPTY, "");
+		
+		
+		hud.AddLine(HELP, "                                                              " + myForceString);
+
+		//add multiple empty lines
+		for (int i = 0; i < 20; i++)
+		{
+			hud.AddLine(HELP, "");
+		}
+		
 		//add a help screen
-		hud.AddLine(HELP, " Simulation");
-		hud.AddLine(HELP, "    F9 - select next actor");
-		hud.AddLine(HELP, "    F10 - pause");
-		hud.AddLine(HELP, "    F12 - reset");
+		hud.AddLine(HELP, "                                              CRAZY GOLF");
 		hud.AddLine(HELP, "");
-		hud.AddLine(HELP, " Display");
-		hud.AddLine(HELP, "    F5 - help on/off");
-		hud.AddLine(HELP, "    F6 - shadows on/off");
-		hud.AddLine(HELP, "    F7 - render mode");
+		hud.AddLine(HELP, "                                              GAME CONTROLS");
+		hud.AddLine(HELP, "                                              UP Arrow       -    Increase Force");
+		hud.AddLine(HELP, "                                              DOWN Arrow    -    Decrease Force");
+		hud.AddLine(HELP, "                                              R                  -    Apply Force");
 		hud.AddLine(HELP, "");
-		hud.AddLine(HELP, " Camera");
-		hud.AddLine(HELP, "    W,S,A,D,Q,Z - forward,backward,left,right,up,down");
-		hud.AddLine(HELP, "    mouse + click - change orientation");
-		hud.AddLine(HELP, "    F8 - reset view");
-		hud.AddLine(HELP, " UP Arrow - Increase Force");
-		hud.AddLine(HELP, " DOWN Arrow - Decrease Force");
-		hud.AddLine(HELP, " Apply Force (to golf club) - R");
-		hud.AddLine(HELP, myForceString);
+		hud.AddLine(HELP, "                                              VIEW CONTROLS");
+		hud.AddLine(HELP, "                                              F5 - help on/off");
+		hud.AddLine(HELP, "                                              F6 - shadows on/off");
+		hud.AddLine(HELP, "                                              F7 - render mode");
+		hud.AddLine(HELP, "                                              F8 - reset view");
+		hud.AddLine(HELP, "                                              F12 - reset");
+		
 
 		//add a pause screen
 		hud.AddLine(PAUSE, "");
@@ -287,12 +293,12 @@ namespace VisualDebugger
 			
 			//Add force
 		case GLUT_KEY_UP:
-			scene->myForce += 50000; 
+			scene->myForce += 1000000; 
 			cout << "Force: " << scene->myForce << endl; 
 			break;
 			//Subtract force
 		case GLUT_KEY_DOWN:
-			scene->myForce -= 50000; 
+			scene->myForce -= 1000000; 
 			cout << "Force: " << scene->myForce << endl;
 			break; 
 

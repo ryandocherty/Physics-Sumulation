@@ -33,6 +33,8 @@ namespace PhysicsEngine
 		}
 	};
 
+
+
 	///Box class
 	class Box : public StaticActor
 	{
@@ -70,14 +72,14 @@ namespace PhysicsEngine
 	class Spinner : public DynamicActor
 	{
 	public:
-		Spinner(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, 7.f, .5f), PxReal density = 1.f)
+		Spinner(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.9f, 7.f, .5f), PxReal density = 1.f)
 			: DynamicActor(pose)
 		{
 
 			CreateShape(PxBoxGeometry(dimensions), density);
 			CreateShape(PxBoxGeometry(dimensions), density);
 			GetShape(0)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f), (PxQuat(PxPi / 2, PxVec3(1.f, 0.f, 0.f)))));
-			GetShape(1)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f), (PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f)))));
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(2.0f, 5.0f, 0.0f))); 
 		}
 	};
 

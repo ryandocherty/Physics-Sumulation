@@ -186,15 +186,11 @@ namespace PhysicsEngine
 		Plane* plane;
 		Sphere* golfBall; 
 		Rectangle* rectangles; 
-		RevoluteJoint* joint,* joint2;
+		RevoluteJoint* joint,* rotatingSpinner1,* rotatingSpinner2;
 		Club* club; 
 		Box* box; 
 		Spinner* spinner; 
-
-		//borders for the level
 		Border* border; 
-		
-
 		MySimulationEventCallback* my_callback;
 
 	public:
@@ -228,7 +224,7 @@ namespace PhysicsEngine
 			club = new Club(); 
 			plane->Color(PxVec3(210.f / 255.f, 210.f / 255.f, 210.f / 255.f));
 			Add(plane);
-			Add(club);
+			
 			
 			box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
 			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f))); 
@@ -241,6 +237,7 @@ namespace PhysicsEngine
 			PxMaterial* borderMaterial = CreateMaterial(.0f, .0f, .5f);
 			rectangles->Material(rectangleMaterial); 
 			border->Material(borderMaterial); 
+			spinner->Material(borderMaterial); 
 			
 			//Golf club joint
 			RevoluteJoint joint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
@@ -249,24 +246,23 @@ namespace PhysicsEngine
 			box->Color(color_palette[1]);
 			border->Color(color_palette[4]);
 			
+			//Set trigger for the 'hole' 
 			box->SetTrigger(1);
 			
-			//set collision filter flags
-			// box->SetupFiltering(FilterGroup::ACTOR0, FilterGroup::ACTOR1);
-			//use | operator to combine more actors e.g.
-			// box->SetupFiltering(FilterGroup::ACTOR0, FilterGroup::ACTOR1 | FilterGroup::ACTOR2);
-			//don't forget to set your flags for the matching actor as well, e.g.:
-			// box2->SetupFiltering(FilterGroup::ACTOR1, FilterGroup::ACTOR0);
-			
+			//Add actors to scene 
 			Add(golfBall); 
 			Add(border); 
 			Add(rectangles); 
 			Add(box); 
 			Add(spinner); 
+			Add(club);
 
 			//Rotating spinner
-			joint2 = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 1.0f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 1.0f, 0.f)));
-			joint2->DriveVelocity(PxReal(5.0f));
+			rotatingSpinner1 = new RevoluteJoint(NULL, PxTransform(PxVec3(35.f, 0.1f, 50.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
+			rotatingSpinner1->DriveVelocity(PxReal(10.0f));
+
+			rotatingSpinner2 = new RevoluteJoint(NULL, PxTransform(PxVec3(35.f, 0.1f, 50.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
+			rotatingSpinner2->DriveVelocity(PxReal(10.0f));
 		
 		}
 
