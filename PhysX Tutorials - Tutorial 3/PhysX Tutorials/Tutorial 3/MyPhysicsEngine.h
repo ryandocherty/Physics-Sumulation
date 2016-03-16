@@ -225,34 +225,71 @@ namespace PhysicsEngine
 			plane->Color(PxVec3(210.f / 255.f, 210.f / 255.f, 210.f / 255.f));
 			Add(plane);
 			
-			
+
+
+			//---------------------------------------------------------TRANSFORMS---------------------------------------------------------//
 			box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
 			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f))); 
 			border = new Border(PxTransform(PxVec3(.5f, .5f, .5f))); 
 			rectangles = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f)));
 			spinner = new Spinner(PxTransform(PxVec3(.5f, .5f, .5f)));
 			spinner2 = new Spinner(PxTransform(PxVec3(.5f, .5f, .5f)));
+			//-------------------------------------------------------------------------------------------------------------------------------//
 
+
+
+
+
+			//---------------------------------------------------------MATERIALS---------------------------------------------------------//
 			//sets a bouncy property to shapes
-			PxMaterial* rectangleMaterial = CreateMaterial(.0f, .0f, 3.f); 
-			PxMaterial* borderMaterial = CreateMaterial(.0f, .0f, .5f);
+			PxMaterial* rectangleMaterial = CreateMaterial(0.f, .0f, 3.f); 
+			PxMaterial* borderMaterial = CreateMaterial(0.f, .0f, .5f);
+			PxMaterial* spinnerMaterial = CreateMaterial(0.f, .0f, .8f);
 			rectangles->Material(rectangleMaterial); 
 			border->Material(borderMaterial); 
-			spinner->Material(borderMaterial); 
-			spinner2->Material(borderMaterial);
+			spinner->Material(spinnerMaterial);
+			spinner2->Material(spinnerMaterial);
+			//-------------------------------------------------------------------------------------------------------------------------------//
 
-			
+
+
+
+
+			//---------------------------------------------------------REVOLUTE JOINTS---------------------------------------------------------//
 			//Golf club joint
 			joint = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
 			joint->DriveVelocity(0.0f); 
 
+			//first rotating spinner
+			rotatingSpinner1 = new RevoluteJoint(NULL, PxTransform(PxVec3(35.f, 0.1f, 50.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
+			rotatingSpinner1->DriveVelocity(PxReal(7.0f));
+
+			//second rotating spinner
+			rotatingSpinner2 = new RevoluteJoint(NULL, PxTransform(PxVec3(-35.f, 0.1f, -30.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner2, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
+			rotatingSpinner2->DriveVelocity(PxReal(-3.0f));
+			//-------------------------------------------------------------------------------------------------------------------------------//
+
+
+
+
+			//---------------------------------------------------------COLOURS---------------------------------------------------------//
 			golfBall->Color(color_palette[0]);
 			box->Color(color_palette[1]);
 			border->Color(color_palette[4]);
-			
+			//-------------------------------------------------------------------------------------------------------------------------------//
+
+
+
+
+
 			//Set trigger for the 'hole' 
 			box->SetTrigger(1);
-			
+
+
+
+
+
+			//---------------------------------------------------------ADDS---------------------------------------------------------//
 			//Add actors to scene 
 			Add(golfBall); 
 			Add(border); 
@@ -261,15 +298,7 @@ namespace PhysicsEngine
 			Add(spinner); 
 			Add(spinner2); 
 			Add(club);
-
-			//first rotating spinner
-			rotatingSpinner1 = new RevoluteJoint(NULL, PxTransform(PxVec3(35.f, 0.1f, 50.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
-			rotatingSpinner1->DriveVelocity(PxReal(7.0f));
-
-			//second rotating spinner
-			rotatingSpinner2 = new RevoluteJoint(NULL, PxTransform(PxVec3(-35.f, 0.1f, -30.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner2, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
-			rotatingSpinner2->DriveVelocity(PxReal(3.0f));
-		
+			//-------------------------------------------------------------------------------------------------------------------------------//
 		}
 
 
@@ -285,15 +314,15 @@ namespace PhysicsEngine
 		//Custom udpate function
 		virtual void CustomUpdate()
 		{
-			//makes sure force stays between -10 and 10
-			if (myForce >= 10)
+			//makes sure force stays between -8 and 8
+			if (myForce >= 8)
 			{
-				myForce = 10; 
+				myForce = 8; 
 			}
 
-			if (myForce <= -10)
+			if (myForce <= -8)
 			{
-				myForce = -10; 
+				myForce = -8; 
 			}
 
 			//checks trigger

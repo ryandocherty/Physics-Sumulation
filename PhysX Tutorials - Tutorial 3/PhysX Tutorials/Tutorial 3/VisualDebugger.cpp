@@ -125,9 +125,13 @@ namespace VisualDebugger
 		hud.AddLine(PAUSE, "");
 		hud.AddLine(PAUSE, "");
 		hud.AddLine(PAUSE, "   Simulation paused. Press F10 to continue.");
-
-		hud.AddLine(WIN, "");
-		hud.AddLine(WIN, "                                              YOU WIN!");
+		
+		
+		for (int i = 0; i < 20; i++)
+		{
+			hud.AddLine(WIN, "");
+		}
+		hud.AddLine(WIN, "                                                                   YOU WIN!");
 
 
 		//set font size for all screens
