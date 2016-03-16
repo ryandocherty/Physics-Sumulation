@@ -112,11 +112,12 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "                                              R                  -    Apply Force");
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, "                                              VIEW CONTROLS");
+		hud.AddLine(HELP, "                                              F4 - reset");
 		hud.AddLine(HELP, "                                              F5 - help on/off");
 		hud.AddLine(HELP, "                                              F6 - shadows on/off");
 		hud.AddLine(HELP, "                                              F7 - render mode");
 		hud.AddLine(HELP, "                                              F8 - reset view");
-		hud.AddLine(HELP, "                                              F12 - reset");
+		
 		
 
 		//add a pause screen
@@ -124,6 +125,11 @@ namespace VisualDebugger
 		hud.AddLine(PAUSE, "");
 		hud.AddLine(PAUSE, "");
 		hud.AddLine(PAUSE, "   Simulation paused. Press F10 to continue.");
+
+		hud.AddLine(WIN, "");
+		hud.AddLine(WIN, "                                              YOU WIN!");
+
+
 		//set font size for all screens
 		hud.FontSize(0.018f);
 		//set font color for all screens
@@ -169,13 +175,13 @@ namespace VisualDebugger
 		}
 		else
 			hud.ActiveScreen(EMPTY);
-	
+	    
 
-		/*else if (scene->triggerbool)
+		 if (scene->hasWon)
 		{
-			hud.ActiveScreen(WIN); 
-		}*/
-
+			hud.ActiveScreen(WIN);
+			
+		}
 		//render HUD
 		hud.Render();
 		hud.Clear(); 
@@ -197,6 +203,7 @@ namespace VisualDebugger
 		{
 			//implement your own
 		case 'R':
+			//add force when 'R' is pressed 
 			scene->push();
 			break;
 		default:
@@ -208,12 +215,7 @@ namespace VisualDebugger
 	{
 		switch (toupper(key))
 		{
-			//implement your own
-		case 'R':
-			scene->ExampleKeyReleaseHandler();
-			break;
-		default:
-			break;
+		
 		}
 	}
 
@@ -293,13 +295,11 @@ namespace VisualDebugger
 			
 			//Add force
 		case GLUT_KEY_UP:
-			scene->myForce += 1000000; 
-			cout << "Force: " << scene->myForce << endl; 
+			scene->myForce += 0.1f; 
 			break;
 			//Subtract force
 		case GLUT_KEY_DOWN:
-			scene->myForce -= 1000000; 
-			cout << "Force: " << scene->myForce << endl;
+			scene->myForce -= 0.1f; 
 			break; 
 
 			//display control
@@ -329,8 +329,10 @@ namespace VisualDebugger
 			//toggle scene pause
 			scene->Pause(!scene->Pause());
 			break;
-		case GLUT_KEY_F12:
+		case GLUT_KEY_F4:
 			//resect scene
+			scene->myForce = 0; 
+			scene->hasWon = false; 
 			scene->Reset();
 			break;
 		default:

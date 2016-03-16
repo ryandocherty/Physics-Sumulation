@@ -189,7 +189,7 @@ namespace PhysicsEngine
 		RevoluteJoint* joint,* rotatingSpinner1,* rotatingSpinner2;
 		Club* club; 
 		Box* box; 
-		Spinner* spinner; 
+		Spinner* spinner,* spinner2; 
 		Border* border; 
 		MySimulationEventCallback* my_callback;
 
@@ -197,8 +197,8 @@ namespace PhysicsEngine
 		//specify your custom filter shader here
 		//PxDefaultSimulationFilterShader by default
 		MyScene() : Scene() {};
-		int myForce = 10000000; 
-
+		float myForce = 0.0f;
+		bool hasWon; 
 
 		///A custom scene class
 		void SetVisualisation()
@@ -231,6 +231,7 @@ namespace PhysicsEngine
 			border = new Border(PxTransform(PxVec3(.5f, .5f, .5f))); 
 			rectangles = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f)));
 			spinner = new Spinner(PxTransform(PxVec3(.5f, .5f, .5f)));
+			spinner2 = new Spinner(PxTransform(PxVec3(.5f, .5f, .5f)));
 
 			//sets a bouncy property to shapes
 			PxMaterial* rectangleMaterial = CreateMaterial(.0f, .0f, 3.f); 
@@ -238,9 +239,12 @@ namespace PhysicsEngine
 			rectangles->Material(rectangleMaterial); 
 			border->Material(borderMaterial); 
 			spinner->Material(borderMaterial); 
+			spinner2->Material(borderMaterial);
+
 			
 			//Golf club joint
-			RevoluteJoint joint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
+			joint = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
+			joint->DriveVelocity(0.0f); 
 
 			golfBall->Color(color_palette[0]);
 			box->Color(color_palette[1]);
@@ -255,14 +259,16 @@ namespace PhysicsEngine
 			Add(rectangles); 
 			Add(box); 
 			Add(spinner); 
+			Add(spinner2); 
 			Add(club);
 
-			//Rotating spinner
+			//first rotating spinner
 			rotatingSpinner1 = new RevoluteJoint(NULL, PxTransform(PxVec3(35.f, 0.1f, 50.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
-			rotatingSpinner1->DriveVelocity(PxReal(10.0f));
+			rotatingSpinner1->DriveVelocity(PxReal(7.0f));
 
-			rotatingSpinner2 = new RevoluteJoint(NULL, PxTransform(PxVec3(35.f, 0.1f, 50.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
-			rotatingSpinner2->DriveVelocity(PxReal(10.0f));
+			//second rotating spinner
+			rotatingSpinner2 = new RevoluteJoint(NULL, PxTransform(PxVec3(-35.f, 0.1f, -30.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner2, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
+			rotatingSpinner2->DriveVelocity(PxReal(3.0f));
 		
 		}
 
@@ -270,25 +276,33 @@ namespace PhysicsEngine
 		//adds force to club
 		void push()
 		{
-			((PxRigidDynamic*)club->Get())->addForce(PxVec3(1.f, 0.f, 0.f) * myForce); 
+			joint->DriveVelocity(-myForce);
 		}
+
+	
 
 
 		//Custom udpate function
 		virtual void CustomUpdate()
 		{
-		}
+			//makes sure force stays between -10 and 10
+			if (myForce >= 10)
+			{
+				myForce = 10; 
+			}
 
-		/// An example use of key release handling
-		void ExampleKeyReleaseHandler()
-		{
-			cerr << "I am realeased!" << endl;
-		}
+			if (myForce <= -10)
+			{
+				myForce = -10; 
+			}
 
-		/// An example use of key presse handling
-		void ExampleKeyPressHandler()
-		{
-			cerr << "I am pressed!" << endl;
+			//checks trigger
+			if (my_callback->trigger)
+			{
+				//if golf ball has collided with hole
+				hasWon = true; 
+				((PxRigidDynamic*)golfBall->Get())->putToSleep(); 
+			}
 		}
 	};
 }
