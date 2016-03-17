@@ -203,6 +203,7 @@ namespace PhysicsEngine
 		MyScene() : Scene() {};
 		float myForce = 0.0f;
 		bool hasWon; 
+		int randNum = rand() % 5; 
 
 		///A custom scene class
 		void SetVisualisation()
@@ -316,8 +317,34 @@ namespace PhysicsEngine
 			golfClub->DriveVelocity(-myForce);
 		}
 
-	
 
+		//Function to change box position between win states
+		void swichBoxPosition()
+		{
+			switch (randNum)
+			{
+			case 0:
+				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				break;
+			case 1:
+				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				break;
+			case 2:
+				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				break;
+			case 3:
+				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				break;
+			case 4:
+				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				break;
+			case 5:
+				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				break;
+			default:
+				break;
+			}
+		}
 
 		//Custom udpate function
 		virtual void CustomUpdate()

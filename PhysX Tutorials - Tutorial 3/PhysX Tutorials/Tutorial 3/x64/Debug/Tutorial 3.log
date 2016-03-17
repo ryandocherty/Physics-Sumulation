@@ -1,24 +1,43 @@
-﻿Build started 17/03/2016 01:12:18.
+﻿Build started 17/03/2016 01:40:21.
      1>Project "C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\Tutorial 3\Tutorial 3.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\3.3.4\include" /I.\Graphics\include\win32 /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt "Tutorial 3.cpp" VisualDebugger.cpp
          Tutorial 3.cpp
      1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\basicactors.h(82): warning C4305: 'argument': truncation from 'double' to 'physx::PxReal'
-         Generating Code...
-         Compiling...
-         VisualDebugger.cpp
-     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\basicactors.h(82): warning C4305: 'argument': truncation from 'double' to 'physx::PxReal'
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\x64\Debug\Tutorial 3.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\3.3.4\lib\vc14win64" /LIBPATH:.\Graphics\lib\win64\glut PhysX3CommonDEBUG_x64.lib PhysX3ExtensionsDEBUG.lib PhysXVisualDebuggerSDKDEBUG.lib PhysX3DEBUG_x64.lib PhysX3CookingDEBUG_x64.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\x64\Debug\Tutorial 3.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\x64\Debug\Tutorial 3.lib" /MACHINE:X64 x64\Debug\Camera.obj
-         x64\Debug\GLFontRenderer.obj
-         x64\Debug\Renderer.obj
-         x64\Debug\PhysicsEngine.obj
-         x64\Debug\VisualDebugger.obj
-         "x64\Debug\Tutorial 3.obj"
-         Tutorial 3.vcxproj -> C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\x64\Debug\Tutorial 3.exe
-     1>Done Building Project "C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\Tutorial 3\Tutorial 3.vcxproj" (Build target(s)).
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\visualdebugger.h(5): error C2143: syntax error: missing ';' before 'namespace'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(321): error C2059: syntax error: ')'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(322): error C2143: syntax error: missing ';' before '{'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(324): error C2065: 'camera': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(324): error C2227: left of '->MoveForward' must point to class/struct/union/generic type
+         c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(324): note: type is 'unknown-type'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(324): error C2065: 'delta_time': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(327): error C2065: 'camera': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(327): error C2227: left of '->MoveBackward' must point to class/struct/union/generic type
+         c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(327): note: type is 'unknown-type'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(327): error C2065: 'delta_time': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(330): error C2065: 'camera': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(330): error C2227: left of '->MoveLeft' must point to class/struct/union/generic type
+         c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(330): note: type is 'unknown-type'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(330): error C2065: 'delta_time': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(333): error C2065: 'camera': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(333): error C2227: left of '->MoveRight' must point to class/struct/union/generic type
+         c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(333): note: type is 'unknown-type'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(333): error C2065: 'delta_time': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(336): error C2065: 'camera': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(336): error C2227: left of '->MoveUp' must point to class/struct/union/generic type
+         c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(336): note: type is 'unknown-type'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(336): error C2065: 'delta_time': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(339): error C2065: 'camera': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(339): error C2227: left of '->MoveDown' must point to class/struct/union/generic type
+         c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(339): note: type is 'unknown-type'
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(339): error C2065: 'delta_time': undeclared identifier
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(350): error C2575: 'CustomUpdate': only member functions and bases can be virtual
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(350): error C2601: 'CustomUpdate': local function definitions are illegal
+         c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(8): note: this line contains a '{' which has not yet been matched
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(323): error C2046: illegal case
+     1>c:\users\computing\documents\github\physxassignment\physx tutorials - tutorial 3\physx tutorials\tutorial 3\myphysicsengine.h(325): fatal error C1903: unable to recover from previous error(s); stopping compilation
+     1>Done Building Project "C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\Tutorial 3\Tutorial 3.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:02.04
+Time Elapsed 00:00:02.70
