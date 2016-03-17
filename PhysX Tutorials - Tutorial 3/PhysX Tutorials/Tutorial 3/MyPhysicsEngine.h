@@ -19,6 +19,7 @@ namespace PhysicsEngine
 	//vertices have to be specified in a counter-clockwise order to assure the correct shading in rendering
 	static PxU32 pyramid_trigs[] = { 1, 4, 0, 3, 1, 0, 2, 3, 0, 4, 2, 0, 3, 2, 1, 2, 4, 1 };
 
+
 	class Pyramid : public ConvexMesh
 	{
 	public:
@@ -203,8 +204,9 @@ namespace PhysicsEngine
 		MyScene() : Scene() {};
 		float myForce = 0.0f;
 		bool hasWon; 
-		int randNum = rand() % 5; 
-
+		int randNum = 0; 
+	
+	
 		///A custom scene class
 		void SetVisualisation()
 		{
@@ -217,6 +219,7 @@ namespace PhysicsEngine
 		//Custom scene initialisation
 		virtual void CustomInit()
 		{
+			
 			SetVisualisation();
 
 			GetMaterial()->setDynamicFriction(.2f);
@@ -233,7 +236,7 @@ namespace PhysicsEngine
 
 
 			//---------------------------------------------------------TRANSFORMS---------------------------------------------------------//
-			box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+			swichBoxPosition(); //sets a random position for the 'hole' 
 			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f)), 1.1f); 
 			border = new Border(PxTransform(PxVec3(.5f, .5f, .5f))); 
 			rectangles = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f)));
@@ -318,30 +321,30 @@ namespace PhysicsEngine
 		}
 
 
-		//Function to change box position between win states
+		//Randomly changes the position of the red box each time the 
 		void swichBoxPosition()
 		{
+			srand(time(NULL));
+			randNum = rand() % 7; //random number between 0 and 6
 			switch (randNum)
 			{
 			case 0:
-				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				box = new Box(PxTransform(PxVec3(10.5f, .5f, 50.f)));
 				break;
 			case 1:
-				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				box = new Box(PxTransform(PxVec3(5.f, .5f, 30.f)));
 				break;
 			case 2:
-				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				box = new Box(PxTransform(PxVec3(-30.f, .5f, 50.f)));
 				break;
 			case 3:
-				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				box = new Box(PxTransform(PxVec3(.5f, .5f, 40.f)));
 				break;
 			case 4:
-				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
+				box = new Box(PxTransform(PxVec3(-25.5f, .5f, -15.f)));
 				break;
 			case 5:
-				box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
-				break;
-			default:
+				box = new Box(PxTransform(PxVec3(20.5f, .5f, 15.f)));
 				break;
 			}
 		}
@@ -349,6 +352,8 @@ namespace PhysicsEngine
 		//Custom udpate function
 		virtual void CustomUpdate()
 		{
+
+			
 			//makes sure force stays between -8 and 8
 			if (myForce >= 8)
 			{

@@ -98,25 +98,30 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "                                                              " + myForceString);
 
 		//add multiple empty lines
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 17; i++)
 		{
 			hud.AddLine(HELP, "");
 		}
 		
 		//add a help screen
-		hud.AddLine(HELP, "                                              CRAZY GOLF");
+		hud.AddLine(HELP, "                                                   CRAZY GOLF");
 		hud.AddLine(HELP, "");
-		hud.AddLine(HELP, "                                              GAME CONTROLS");
-		hud.AddLine(HELP, "                                              UP Arrow       -    Increase Force");
-		hud.AddLine(HELP, "                                              DOWN Arrow    -    Decrease Force");
-		hud.AddLine(HELP, "                                              R                  -    Apply Force");
+		hud.AddLine(HELP, "                                                   GAME CONTROLS");
+		hud.AddLine(HELP, "                                                   UP Arrow       -    Increase Force");
+		hud.AddLine(HELP, "                                                   DOWN Arrow    -    Decrease Force");
+		hud.AddLine(HELP, "                                                   R                  -    Apply Force");
+		for (int i = 0; i < 5; i++)
+		{
+			hud.AddLine(HELP, "");
+		}
+		hud.AddLine(HELP, "                                                   VIEW CONTROLS");
+		hud.AddLine(HELP, "                                                   F4 - reset scene");
+		hud.AddLine(HELP, "                                                   F5 - help on/off");
+		hud.AddLine(HELP, "                                                   F6 - shadows on/off");
+		hud.AddLine(HELP, "                                                   F7 - render mode");
+		hud.AddLine(HELP, "                                                   F8 - reset view");
 		hud.AddLine(HELP, "");
-		hud.AddLine(HELP, "                                              VIEW CONTROLS");
-		hud.AddLine(HELP, "                                              F4 - reset");
-		hud.AddLine(HELP, "                                              F5 - help on/off");
-		hud.AddLine(HELP, "                                              F6 - shadows on/off");
-		hud.AddLine(HELP, "                                              F7 - render mode");
-		hud.AddLine(HELP, "                                              F8 - reset view");
+		hud.AddLine(HELP, "                                                   Try to hit the red square!");
 		
 		
 
@@ -255,41 +260,6 @@ namespace VisualDebugger
 		}
 	}
 
-	//handle force control keys
-	void ForceInput(int key)
-	{
-		if (!scene->GetSelectedActor())
-			return;
-
-		switch (toupper(key))
-		{
-		//	
-		//// Force controls on the selected actor
-
-	
-		//case 'I': //forward
-		//	scene->GetSelectedActor()->addForce(PxVec3(0, 0, -1)*gForceStrength);
-		//	break;
-		//case 'K': //backward
-		//	scene->GetSelectedActor()->addForce(PxVec3(0, 0, 1)*gForceStrength);
-		//	break;
-		//case 'J': //left
-		//	scene->GetSelectedActor()->addForce(PxVec3(-1, 0, 0)*gForceStrength);
-		//	break;
-		//case 'L': //right
-		//	scene->GetSelectedActor()->addForce(PxVec3(1, 0, 0)*gForceStrength);
-		//	break;
-		//case 'U': //up
-		//	scene->GetSelectedActor()->addForce(PxVec3(0, 1, 0)*gForceStrength);
-		//	break;
-		//case 'M': //down
-		//	scene->GetSelectedActor()->addForce(PxVec3(0, -1, 0)*gForceStrength);
-		//	break;
-		//default:
-		//	break;
-		}
-	}
-
 	///handle special keys
 	void KeySpecial(int key, int x, int y)
 	{
@@ -336,8 +306,11 @@ namespace VisualDebugger
 		case GLUT_KEY_F4:
 			//resect scene
 			scene->myForce = 0; 
-			scene->hasWon = false; 
+			scene->hasWon = false;
+			scene->swichBoxPosition();
 			scene->Reset();
+			
+			
 			break;
 		default:
 			break;
@@ -375,7 +348,6 @@ namespace VisualDebugger
 			if (key_state[i]) // if key down
 			{
 				CameraInput(i);
-				ForceInput(i);
 				UserKeyHold(i);
 			}
 		}
