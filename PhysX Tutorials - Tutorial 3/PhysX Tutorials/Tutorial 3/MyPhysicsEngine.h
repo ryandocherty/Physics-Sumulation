@@ -194,7 +194,7 @@ namespace PhysicsEngine
 		Spinner* spinner,* spinner2; 
 		Border* border; 
 		MySimulationEventCallback* my_callback;
-		Trampoline* tramp;
+		Trampoline* trampoline;
 
 
 	public:
@@ -233,16 +233,16 @@ namespace PhysicsEngine
 
 			//---------------------------------------------------------TRANSFORMS---------------------------------------------------------//
 			box = new Box(PxTransform(PxVec3(.5f, .5f, 43.f)));
-			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f))); 
+			golfBall = new Sphere(PxTransform(PxVec3(.5f, 5.0f, -28.0f)), 1.1f); 
 			border = new Border(PxTransform(PxVec3(.5f, .5f, .5f))); 
 			rectangles = new Rectangle(PxTransform(PxVec3(.5f, .5f, .5f)));
 			spinner = new Spinner(PxTransform(PxVec3(.5f, .5f, .5f)));
 			spinner2 = new Spinner(PxTransform(PxVec3(.5f, .5f, .5f)));
+			trampoline = new Trampoline(PxTransform(PxVec3(0.f, 3.f, 15.f), PxQuat(PxPi / 2, PxVec3(1.f, 0.f, 0.f))), PxVec3(8.f, 3.f, 3.f), 410.0f, 0.3f);
 			//-------------------------------------------------------------------------------------------------------------------------------//
 
 
-			tramp = new Trampoline(PxTransform(PxVec3(10.f, 6.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), PxVec3(5.f, 3.f, 3.f), 410.0f, 0.3f);
-			tramp->AddToScene(this);
+
 
 
 			//---------------------------------------------------------MATERIALS---------------------------------------------------------//
@@ -254,6 +254,7 @@ namespace PhysicsEngine
 			border->Material(borderMaterial); 
 			spinner->Material(spinnerMaterial);
 			spinner2->Material(spinnerMaterial);
+			trampoline->bottom->Material(spinnerMaterial); 
 			//-------------------------------------------------------------------------------------------------------------------------------//
 
 
@@ -281,17 +282,15 @@ namespace PhysicsEngine
 			golfBall->Color(color_palette[0]);
 			box->Color(color_palette[1]);
 			border->Color(color_palette[4]);
-			tramp->bottom->Color(color_palette[2]); 
-			tramp->top->Color(color_palette[3]);
+			trampoline->bottom->Color(color_palette[2]); 
+			trampoline->top->Color(color_palette[3]);
 			//-------------------------------------------------------------------------------------------------------------------------------//
-
 
 
 
 
 			//Set trigger for the 'hole' 
 			box->SetTrigger(1);
-
 
 
 
@@ -305,6 +304,7 @@ namespace PhysicsEngine
 			Add(spinner); 
 			Add(spinner2); 
 			Add(club);
+			trampoline->AddToScene(this);
 			//-------------------------------------------------------------------------------------------------------------------------------//
 		}
 
@@ -312,6 +312,7 @@ namespace PhysicsEngine
 		//adds force to club
 		void push()
 		{
+			//does drive velocity == motorised joint? 
 			golfClub->DriveVelocity(-myForce);
 		}
 

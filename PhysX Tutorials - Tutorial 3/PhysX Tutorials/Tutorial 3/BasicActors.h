@@ -68,8 +68,6 @@ namespace PhysicsEngine
 
 
 
-
-
 	class Rectangle : public StaticActor
 	{
 	public:
