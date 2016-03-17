@@ -1,4 +1,4 @@
-﻿Build started 17/03/2016 03:14:29.
+﻿Build started 17/03/2016 03:27:29.
      1>Project "C:\Users\Computing\Documents\GitHub\PhysXAssignment\PhysX Tutorials - Tutorial 3\PhysX Tutorials\Tutorial 2\Tutorial 2.vcxproj" on node 4 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\3.3.4\include" /I.\Graphics\include\win32 /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt Extras\Camera.cpp Extras\GLFontRenderer.cpp Extras\Renderer.cpp PhysicsEngine.cpp VisualDebugger.cpp "Tutorial 2.cpp"

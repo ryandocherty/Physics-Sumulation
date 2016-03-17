@@ -137,6 +137,8 @@ namespace VisualDebugger
 			hud.AddLine(WIN, "");
 		}
 		hud.AddLine(WIN, "                                                                   YOU WIN!");
+		hud.AddLine(WIN, "                                                                F4 - reset scene");
+
 
 
 		//set font size for all screens
