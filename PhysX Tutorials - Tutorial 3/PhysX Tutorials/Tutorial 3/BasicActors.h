@@ -51,6 +51,25 @@ namespace PhysicsEngine
 	};
 
 
+	class DynamicBox : public DynamicActor
+	{
+	public:
+		//a Box with default parameters:
+		// - pose in 0,0,0
+		// - dimensions: 1m x 1m x 1m
+		// - denisty: 1kg/m^3
+		DynamicBox(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(3.f, 0.3f, 3.f), PxReal density = 1.f)
+			: DynamicActor(pose)
+		{
+			CreateShape(PxBoxGeometry(dimensions), density);
+		}
+	};
+
+
+
+
+
+
 	class Rectangle : public StaticActor
 	{
 	public:

@@ -52,19 +52,21 @@ namespace PhysicsEngine
 	class Trampoline
 	{
 		vector<DistanceJoint*> springs;
-		Box *bottom, *top;
-
+		
 	public:
-		Trampoline(const PxVec3& dimensions = PxVec3(1.f, 1.f, 1.f), PxReal stiffness = 1.f, PxReal damping = 1.f)
+
+		DynamicBox *top;
+		Box* bottom; 
+		Trampoline(const PxTransform& pose = PxTransform(PxVec3(0.f, 10.f, 10.f)), const PxVec3& dimensions = PxVec3(5.f, 5.f, 5.f), PxReal stiffness = 1.f, PxReal damping = 1.f)
 		{
 			PxReal thickness = .1f;
-			bottom = new Box(PxTransform(PxVec3(0.f, thickness, 0.f)), PxVec3(dimensions.x, thickness, dimensions.z));
-			top = new Box(PxTransform(PxVec3(0.f, dimensions.y + thickness, 0.f)), PxVec3(dimensions.x, thickness, dimensions.z));
+			bottom = new Box(PxTransform(pose.p + PxVec3(0.f, thickness, 0.f), pose.q), PxVec3(dimensions.x, thickness, dimensions.z));
+			top = new DynamicBox(PxTransform(pose.p + PxVec3(0.f, dimensions.y + thickness, 0.f), pose.q), PxVec3(dimensions.x, thickness, dimensions.z));
 			springs.resize(4);
-			springs[0] = new DistanceJoint(bottom, PxTransform(PxVec3(dimensions.x, thickness, dimensions.z)), top, PxTransform(PxVec3(dimensions.x, -dimensions.y, dimensions.z)));
-			springs[1] = new DistanceJoint(bottom, PxTransform(PxVec3(dimensions.x, thickness, -dimensions.z)), top, PxTransform(PxVec3(dimensions.x, -dimensions.y, -dimensions.z)));
-			springs[2] = new DistanceJoint(bottom, PxTransform(PxVec3(-dimensions.x, thickness, dimensions.z)), top, PxTransform(PxVec3(-dimensions.x, -dimensions.y, dimensions.z)));
-			springs[3] = new DistanceJoint(bottom, PxTransform(PxVec3(-dimensions.x, thickness, -dimensions.z)), top, PxTransform(PxVec3(-dimensions.x, -dimensions.y, -dimensions.z)));
+			springs[0] = new DistanceJoint(bottom, PxTransform(pose.p + PxVec3(dimensions.x, thickness, dimensions.z), pose.q), top, PxTransform(pose.p + PxVec3(dimensions.x, -dimensions.y, dimensions.z), pose.q));
+			springs[1] = new DistanceJoint(bottom, PxTransform(pose.p + PxVec3(dimensions.x, thickness, -dimensions.z), pose.q), top, PxTransform(pose.p + PxVec3(dimensions.x, -dimensions.y, -dimensions.z), pose.q));
+			springs[2] = new DistanceJoint(bottom, PxTransform(pose.p + PxVec3(-dimensions.x, thickness, dimensions.z), pose.q), top, PxTransform(pose.p + PxVec3(-dimensions.x, -dimensions.y, dimensions.z), pose.q));
+			springs[3] = new DistanceJoint(bottom, PxTransform(pose.p + PxVec3(-dimensions.x, thickness, -dimensions.z), pose.q), top, PxTransform(pose.p + PxVec3(-dimensions.x, -dimensions.y, -dimensions.z), pose.q));
 
 			for (unsigned int i = 0; i < springs.size(); i++)
 			{
@@ -186,12 +188,14 @@ namespace PhysicsEngine
 		Plane* plane;
 		Sphere* golfBall; 
 		Rectangle* rectangles; 
-		RevoluteJoint* joint,* rotatingSpinner1,* rotatingSpinner2;
+		RevoluteJoint* golfClub,* rotatingSpinner1,* rotatingSpinner2;
 		Club* club; 
 		Box* box; 
 		Spinner* spinner,* spinner2; 
 		Border* border; 
 		MySimulationEventCallback* my_callback;
+		Trampoline* tramp;
+
 
 	public:
 		//specify your custom filter shader here
@@ -237,7 +241,8 @@ namespace PhysicsEngine
 			//-------------------------------------------------------------------------------------------------------------------------------//
 
 
-
+			tramp = new Trampoline(PxTransform(PxVec3(10.f, 6.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), PxVec3(5.f, 3.f, 3.f), 410.0f, 0.3f);
+			tramp->AddToScene(this);
 
 
 			//---------------------------------------------------------MATERIALS---------------------------------------------------------//
@@ -257,8 +262,8 @@ namespace PhysicsEngine
 
 			//---------------------------------------------------------REVOLUTE JOINTS---------------------------------------------------------//
 			//Golf club joint
-			joint = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
-			joint->DriveVelocity(0.0f); 
+			golfClub = new RevoluteJoint(NULL, PxTransform(PxVec3(0.f, 16.f, 0.f), PxQuat(PxPi / 2, PxVec3(0.f, 1.f, 0.f))), club, PxTransform(PxVec3(-25.f, 1.f, 0.f)));
+			golfClub->DriveVelocity(0.0f); 
 
 			//first rotating spinner
 			rotatingSpinner1 = new RevoluteJoint(NULL, PxTransform(PxVec3(35.f, 0.1f, 50.f), PxQuat(PxPi / 2, PxVec3(0.f, 0.f, 1.f))), spinner, PxTransform(PxVec3(0.f, 5.0f, 0.f)));
@@ -276,6 +281,8 @@ namespace PhysicsEngine
 			golfBall->Color(color_palette[0]);
 			box->Color(color_palette[1]);
 			border->Color(color_palette[4]);
+			tramp->bottom->Color(color_palette[2]); 
+			tramp->top->Color(color_palette[3]);
 			//-------------------------------------------------------------------------------------------------------------------------------//
 
 
@@ -305,7 +312,7 @@ namespace PhysicsEngine
 		//adds force to club
 		void push()
 		{
-			joint->DriveVelocity(-myForce);
+			golfClub->DriveVelocity(-myForce);
 		}
 
 	
