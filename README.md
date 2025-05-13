@@ -4,6 +4,7 @@
 
 The objective of this project is to introduce concepts of physics programming using the PhysX engine with C/C++. 
 The project entails the development of a simple pool table simulation featuring snooker balls, allowing users to interact with the physics-based environment.
+Admittedly, it's not completely finished :(
 
 ## Features
 
